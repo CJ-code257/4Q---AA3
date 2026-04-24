@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Summary</title>
+</head>
+<body>
+
+<h2>Order Summary</h2>
+
+<p><b>Name:</b> <span id="name"></span></p>
+<p><b>Product:</b> <span id="product"></span></p>
+<p><b>Quantity:</b> <span id="quantity"></span></p>
+<p><b>Total:</b> ₱<span id="total"></span></p>
+<p><b>Pickup:</b> <span id="pickup"></span></p>
+<p><b>Address:</b> <span id="address"></span></p>
+
+<p>Thank you for ordering!</p>
+
+<form>
+
+    <button type="button" window.location.href = "preorder.html">Load Previous Order</button>
+
+</form>
+
+<script>
+
+
+  function getCookie(name) {
+    let cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      let c = cookies[i].trim();
+      if (c.indexOf(name + "=") == 0) {
+        return c.substring(name.length + 1);
+      }
+    }
+    return "";
+  }
+
+  let name = getCookie("customerName");
+  let product = localStorage.getItem("product");
+  let quantity = localStorage.getItem("quantity");
+  let pickup = localStorage.getItem("pickup");
+  let address = localStorage.getItem("address");
+
+  function loadPreviousOrder() {
+
+    let name = getCookie("customerName");
+    let product = localStorage.getItem("product");
+    let quantity = localStorage.getItem("quantity");
+    let pickup = localStorage.getItem("pickup");
+    let address = localStorage.getItem("address");
+
+    if (!name || !product) {
+      document.getElementById("errorMsg").innerHTML = "No previous order data";
+      return;
+    }
+
+    document.getElementById("name").value = name;
+    document.getElementById("variant").value = product;
+    document.getElementById("quantity").value = quantity;
+    document.getElementById("pickup").value = pickup;
+    document.getElementById("address").value = address;
+  }
+
+  // Simple price logic (since starter didn't include price)
+  let price = 0; // default
+  if (product == "Brownies") price = 50;
+  if (product == "Cupcake") price = 20;
+
+  let total = price * quantity;
+
+  document.getElementById("name").innerText = name;
+  document.getElementById("product").innerText = product;
+  document.getElementById("quantity").innerText = quantity;
+  document.getElementById("pickup").innerText = pickup;
+  document.getElementById("address").innerText = address;
+  document.getElementById("total").innerText = total;
+
+</script>
+
+</body>
+</html>
